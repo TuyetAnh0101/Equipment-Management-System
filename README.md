@@ -1,65 +1,142 @@
 <div align="center">
-Equipment Management System
 
-Hệ thống quản lý thiết bị trên Oracle Database Quản lý kho, đơn thuê, trả thiết bị, tính phí trễ hạn và xuất hóa đơn — phần lớn xử lý ở tầng database bằng PL/SQL.
+# Equipment Management System
 
-<img src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white" /> <img src="https://img.shields.io/badge/PL%2FSQL-4479A1?style=for-the-badge&logo=databricks&logoColor=white" /> <img src="https://img.shields.io/badge/SQL-336791?style=for-the-badge&logo=postgresql&logoColor=white" /> </div> <br>
-Mục lục
-Giới thiệu
-Nghiệp vụ hệ thống xử lý
-Thiết kế database
-Công nghệ sử dụng
-Phạm vi đồ án
+### Oracle Database Project
+
+A database-driven equipment management system for managing inventory, rentals, returns, late fees, payments, and invoices, with most business logic implemented at the database layer using PL/SQL.
+
+<p>
+  <img src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white" />
+  <img src="https://img.shields.io/badge/PL%2FSQL-4479A1?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/SQL-336791?style=for-the-badge" />
+</p>
+
+</div>
+
+---
+
+## Table of Contents
+
+* [Overview](#overview)
+* [System Operations](#system-operations)
+* [Database Design](#database-design)
+* [Technologies](#technologies)
+* [Project Scope](#project-scope)
+* [Author](#author)
+
+---
+
+## Overview
+
+The Equipment Management System manages the complete lifecycle of an equipment rental, from inventory management and rental creation to equipment returns, late fee calculation, payments, and tax-based invoice generation.
+
+The main purpose of this project is to practice **relational database design and PL/SQL programming** for a business system with multiple constraints and interconnected operations.
+
+Key business rules are implemented primarily at the database layer using **triggers, functions, procedures, and constraints**, reducing dependency on application-level processing.
+
+---
+
+## System Operations
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### Equipment and Inventory Management
+
+Track equipment by category, inventory quantity, and current status such as available, rented, or under maintenance.
+
+### Rental Management
+
+Create rental orders, assign equipment to rental items, and record deposits. Equipment status is automatically updated when a rental is confirmed.
+
+### Return Processing
+
+Record the actual return date, calculate late fees when the rental exceeds the due date, and evaluate equipment condition to determine the appropriate deposit refund.
+
+</td>
+
+<td width="50%" valign="top">
+
+### Payments and Invoices
+
+Calculate rental charges, additional fees, and taxes before generating an invoice for each rental.
+
+### Logging and Control
+
+Record important system operations such as rental creation, equipment status changes, and payment activities for auditing and data consistency checks.
+
+</td>
+</tr>
+</table>
+
+---
+
+## Database Design
+
+The main business rules are implemented at the database layer.
+
+| Database Component | Responsibility                                                                                                          |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| Trigger            | Automatically update equipment status when rental or return operations occur                                            |
+| Function           | Calculate late fees based on overdue days and equipment rental price                                                    |
+| Procedure          | Process invoice generation by calculating rental charges, additional fees, applying taxes, and creating invoice records |
+| Constraint         | Prevent the same equipment from being assigned to multiple active rentals                                               |
+
+### Entity Relationship Diagram
+
+<details>
+<summary><strong>View Database ERD</strong></summary>
+
 <br>
-Giới thiệu
 
-Hệ thống xử lý toàn bộ vòng đời của một đơn thuê thiết bị: từ quản lý kho, tạo đơn thuê, trả thiết bị, tính phí trễ hạn, đến thanh toán và xuất hóa đơn có thuế.
+<p align="center">
+  <img src="./docs/erdplus.png" alt="Equipment Management System ERD" width="100%" />
+</p>
 
-Mục tiêu chính của đồ án là thực hành thiết kế CSDL quan hệ và lập trình PL/SQL cho một bài toán nghiệp vụ có nhiều ràng buộc: một thiết bị không thể vừa cho thuê vừa sẵn có, tiền cọc phải khớp giá trị thiết bị, phí trễ hạn phải tính tự động theo số ngày trễ. Phần lớn các quy tắc này được đẩy xuống tầng database bằng trigger và procedure thay vì xử lý ở tầng ứng dụng.
+</details>
 
-<br>
-Nghiệp vụ hệ thống xử lý
-<table> <tr> <td width="50%" valign="top">
+---
 
-Quản lý thiết bị & kho Theo dõi thiết bị theo danh mục, số lượng tồn, và trạng thái hiện tại (sẵn có / đang thuê / bảo trì).
+## Technologies
 
-Quản lý đơn thuê Tạo đơn thuê, gán thiết bị vào đơn, ghi nhận tiền cọc. Trạng thái thiết bị cập nhật tự động khi đơn được xác nhận.
+| Component            | Technology                                     |
+| -------------------- | ---------------------------------------------- |
+| Database             | Oracle Database                                |
+| Programming Language | SQL, PL/SQL                                    |
+| Business Logic       | Stored Procedures, Functions, Triggers         |
+| Database Design      | Relational Schema, Entity Relationship Diagram |
+| Normalization        | Third Normal Form (3NF)                        |
 
-Xử lý trả thiết bị Ghi nhận ngày trả thực tế, tự động tính phí trễ hạn nếu vượt thời hạn thuê, đánh giá tình trạng thiết bị sau khi trả để quyết định mức hoàn cọc.
+---
 
-</td> <td width="50%" valign="top">
+## Project Scope
 
-Thanh toán & hóa đơn Tổng hợp tiền thuê, phí phát sinh, thuế để xuất hóa đơn cho từng đơn thuê.
+This project focuses primarily on **database backend development rather than the user interface**.
 
-Ghi log & kiểm soát Lưu vết các thao tác quan trọng (tạo đơn, thay đổi trạng thái thiết bị, thanh toán) phục vụ kiểm tra khi có sai lệch dữ liệu.
+The main focus is designing a relational database that correctly represents the business requirements and implementing PL/SQL logic for operations such as:
 
-</td> </tr> </table> <br>
-Thiết kế database
+* Equipment status management
+* Rental processing
+* Deposit calculation
+* Late fee calculation
+* Return processing
+* Payment processing
+* Invoice generation
+* Tax calculation
+* System logging
 
-Các quy tắc nghiệp vụ được implement chủ yếu ở tầng database:
+The goal is to ensure that important business rules are enforced directly at the database level rather than depending entirely on the application layer.
 
-Đối tượng	Vai trò
-Trigger	Cập nhật trạng thái thiết bị mỗi khi đơn thuê được tạo hoặc thiết bị được trả
-Function	Tính phí trễ hạn dựa trên số ngày vượt hạn và đơn giá thiết bị
-Procedure	Xử lý luồng tạo hóa đơn: tổng hợp tiền thuê + phí phát sinh, áp thuế, ghi vào bảng hóa đơn
-Constraint	Đảm bảo một thiết bị không thể xuất hiện ở hai đơn thuê đang hoạt động cùng lúc
-<details> <summary><b>Lược đồ CSDL (ERD)</b> — bấm để xem</summary> <br> Chèn ảnh ERD của bạn vào đây, ví dụ:
-markdown
-![ERD](./docs/erdplus.png)
-</details> <br>
-Công nghệ sử dụng
-Thành phần	Công nghệ
-Database	Oracle Database
-Ngôn ngữ	SQL, PL/SQL
-Logic nghiệp vụ	Stored Procedures, Functions, Triggers
-Thiết kế	Lược đồ quan hệ (ERD), chuẩn hóa đến 3NF
-<br>
-Phạm vi đồ án
+---
 
-Đây là đồ án tập trung vào backend database hơn là giao diện — trọng tâm là thiết kế lược đồ đúng ràng buộc nghiệp vụ và viết PL/SQL để các quy tắc (tính phí, cập nhật trạng thái, xuất hóa đơn) chạy được ngay ở tầng CSDL, không phụ thuộc tầng ứng dụng phía trên.
+## Author
 
 <div align="center">
 
-<sub>Made by <a href="https://github.com/TuyetAnh0101">TuyetAnh0101</a></sub>
+<a href="https://github.com/TuyetAnh0101">
+  <img src="https://img.shields.io/badge/GitHub-TuyetAnh0101-181717?style=for-the-badge&logo=github&logoColor=white" />
+</a>
 
 </div>
