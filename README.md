@@ -45,7 +45,7 @@ Procedure	Xử lý luồng tạo hóa đơn: tổng hợp tiền thuê + phí ph
 Constraint	Đảm bảo một thiết bị không thể xuất hiện ở hai đơn thuê đang hoạt động cùng lúc
 <details> <summary><b>Lược đồ CSDL (ERD)</b> — bấm để xem</summary> <br> Chèn ảnh ERD của bạn vào đây, ví dụ:
 markdown
-![ERD](./docs/erd.png)
+![ERD](./docs/erdplus.png)
 </details> <br>
 Công nghệ sử dụng
 Thành phần	Công nghệ
